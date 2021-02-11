@@ -2,8 +2,11 @@ package com.example.mapboxproject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -38,6 +41,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PermissionsListener, OnMapReadyCallback {
 
+    private DrawerLayout drawerLayout;
     private MapView mapView;
     private MapboxMap mapboxMap;
     private LocationComponent locationComponent;
@@ -53,6 +57,14 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
 
         setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.nav);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_draw_open,R.string.navigation_draw_close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
